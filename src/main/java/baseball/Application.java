@@ -1,6 +1,7 @@
 package baseball;
 
 import baseball.service.BaseballService;
+import nextstep.utils.Console;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,23 +10,22 @@ public class Application {
     public static BaseballService baseballService = new BaseballService();
 
     public static void main(String[] args) {
-        startGame();
+        do {
+            startGame();
+        } while (endGame());
     }
 
     public static void startGame() {
         Map<String, Integer> comNumbersMap;
         Map<String, Integer> userNumbersMap;
-        Map<String, Integer> resultMap = new HashMap(){
-            {
-                put("S", 0);
-                put("B", 0);
-            }
-        };
+        Map<String, Integer> resultMap = new HashMap();
+        baseballService.initResultMap(resultMap);
 
         comNumbersMap = baseballService.makeComNumber();
         System.out.println("comNumbersMap" + comNumbersMap.toString());
 
         while (!resultMap.get("S").equals(3)) {
+            baseballService.initResultMap(resultMap);
             userNumbersMap = baseballService.inputUserNumber();
 
             userNumbersMap.forEach((key, value) -> baseballService.makeResultMap(resultMap, comNumbersMap, key, value));
@@ -33,5 +33,13 @@ public class Application {
             System.out.println(baseballService.makeMessage(resultMap));
         }
 
+    }
+
+    public static boolean endGame() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        if (Console.readLine().equals("1")) {
+            return true;
+        }
+        return false;
     }
 }

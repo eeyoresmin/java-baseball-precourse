@@ -105,4 +105,8 @@ public class BaseballService {
         return "낫싱";
     }
 
+    public void initResultMap(Map<String, Integer> resultMap) {
+        resultMap.put("S", 0);
+        resultMap.put("B", 0);
+    }
 }
