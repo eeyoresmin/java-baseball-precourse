@@ -1,7 +1,6 @@
 package baseball;
 
 import baseball.service.BaseballService;
-import org.assertj.core.internal.bytebuddy.matcher.ElementMatcher;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

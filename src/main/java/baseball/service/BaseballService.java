@@ -9,6 +9,8 @@ import static nextstep.utils.Console.readLine;
 
 public class BaseballService {
 
+    private int BEGIN_NUM = 111;
+    private int END_NUM = 999;
     private int MAX_SIZE = 3;
     private String REG_EX = "[1-9]{" + MAX_SIZE+  "}";
 
@@ -21,7 +23,7 @@ public class BaseballService {
         int baseInt;
 
         do {
-            baseInt = Randoms.pickNumberInRange(111, 999);
+            baseInt = Randoms.pickNumberInRange(BEGIN_NUM, END_NUM);
             comNumbersMap = changeNumberToMap(String.valueOf(baseInt));
         } while (!String.valueOf(baseInt).matches(REG_EX) || comNumbersMap.keySet().size() != MAX_SIZE);
 
@@ -64,6 +66,17 @@ public class BaseballService {
     }
 
     /**
+     *
+     * @param resultMap
+     * @param comNumbersMap
+     * @param userNumbersMap
+     */
+    public void countNumbers(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap, Map<String, Integer> userNumbersMap) {
+        for (Map.Entry<String, Integer> entry : userNumbersMap.entrySet()) {
+            makeResultMap(resultMap, comNumbersMap, entry.getKey(), entry.getValue());
+        }
+    }
+    /**
      * 컴퓨터 Map과  사용자 입력 Map을 비교하여 결과 값을 resultMap에 저장
      *
      * @param resultMap
@@ -91,8 +104,6 @@ public class BaseballService {
      * @return
      */
     public String makeMessage(Map<String, Integer> resultMap) {
-        StringBuilder message = new StringBuilder();
-
         if (resultMap.get("S") != 0 && resultMap.get("B") != 0) {
             return String.format("%d%s %d%s",resultMap.get("S"), "스트라이크",resultMap.get("B"), "볼");
         }

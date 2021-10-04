@@ -28,7 +28,7 @@ public class Application {
             baseballService.initResultMap(resultMap);
             userNumbersMap = baseballService.inputUserNumber();
 
-            userNumbersMap.forEach((key, value) -> baseballService.makeResultMap(resultMap, comNumbersMap, key, value));
+            baseballService.countNumbers(resultMap, comNumbersMap, userNumbersMap);
 
             System.out.println(baseballService.makeMessage(resultMap));
         }
