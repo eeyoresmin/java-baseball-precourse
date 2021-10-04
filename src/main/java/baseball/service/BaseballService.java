@@ -9,6 +9,9 @@ import static nextstep.utils.Console.readLine;
 
 public class BaseballService {
 
+    private int MAX_SIZE = 3;
+    private String REG_EX = "[1-9]{" + MAX_SIZE+  "}";
+
     /**
      * 컴퓨터에서 생성한 숫자가 서로 다른 수로 구성 되도록 만들어준다.
      * @return 생성된 숫자를 Key, 자릿수를 Value로 한 Map
@@ -20,7 +23,7 @@ public class BaseballService {
         do {
             baseInt = Randoms.pickNumberInRange(111, 999);
             comNumbersMap = changeNumberToMap(String.valueOf(baseInt));
-        } while (comNumbersMap.keySet().size() != 3);
+        } while (!String.valueOf(baseInt).matches(REG_EX) || comNumbersMap.keySet().size() != MAX_SIZE);
 
         return comNumbersMap;
     }
@@ -39,7 +42,7 @@ public class BaseballService {
             System.out.print("숫자를 입력해주세요: ");
             inputString = readLine();
             userNumbersMap = changeNumberToMap(inputString);
-        } while (userNumbersMap.keySet().size() != 3);
+        } while (!isNumeric(inputString) || userNumbersMap.keySet().size() != MAX_SIZE);
 
         return userNumbersMap;
     }
@@ -108,5 +111,13 @@ public class BaseballService {
     public void initResultMap(Map<String, Integer> resultMap) {
         resultMap.put("S", 0);
         resultMap.put("B", 0);
+    }
+
+    private boolean isNumeric(String strNum) {
+        boolean result = strNum.matches(REG_EX);
+        if (!result) {
+            System.out.println("[ERROR] 숫자로 3자리 입력하세요.");
+        }
+        return result;
     }
 }
