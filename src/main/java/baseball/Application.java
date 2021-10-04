@@ -9,18 +9,29 @@ public class Application {
     public static BaseballService baseballService = new BaseballService();
 
     public static void main(String[] args) {
-        // TODO 숫자 야구 게임 구현
         startGame();
     }
 
     public static void startGame() {
         Map<String, Integer> comNumbersMap;
         Map<String, Integer> userNumbersMap;
+        Map<String, Integer> resultMap = new HashMap(){
+            {
+                put("S", 0);
+                put("B", 0);
+            }
+        };
 
         comNumbersMap = baseballService.makeComNumber();
-        userNumbersMap = baseballService.inputUserNumber();
-
         System.out.println("comNumbersMap" + comNumbersMap.toString());
-        System.out.println("userNumbersMap" + userNumbersMap.toString());
+
+        while (!resultMap.get("S").equals(3)) {
+            userNumbersMap = baseballService.inputUserNumber();
+
+            userNumbersMap.forEach((key, value) -> baseballService.makeResultMap(resultMap, comNumbersMap, key, value));
+
+            System.out.println(baseballService.makeMessage(resultMap));
+        }
+
     }
 }

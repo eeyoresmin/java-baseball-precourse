@@ -60,4 +60,49 @@ public class BaseballService {
         return map;
     }
 
+    /**
+     * 컴퓨터 Map과  사용자 입력 Map을 비교하여 결과 값을 resultMap에 저장
+     *
+     * @param resultMap
+     * @param comNumbersMap
+     * @param userNumber
+     * @param userNumberValue
+     */
+    public void makeResultMap(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap, String userNumber, Integer userNumberValue) {
+        if (!comNumbersMap.containsKey(userNumber)) {
+            return;
+        }
+
+        if (comNumbersMap.get(userNumber).equals(userNumberValue)) {
+            resultMap.put("S", resultMap.get("S") + 1);
+            return;
+        }
+
+        resultMap.put("B", resultMap.get("B") + 1);
+    }
+
+    /**
+     * resultMap Data에 따른 메시지 생성
+     *
+     * @param resultMap
+     * @return
+     */
+    public String makeMessage(Map<String, Integer> resultMap) {
+        StringBuilder message = new StringBuilder();
+
+        if (resultMap.get("S") != 0 && resultMap.get("B") != 0) {
+            return String.format("%d%s %d%s",resultMap.get("S"), "스트라이크",resultMap.get("B"), "볼");
+        }
+
+        if (resultMap.get("S") != 0) {
+            return String.format("%d%s",resultMap.get("S"), "스트라이크");
+        }
+
+        if (resultMap.get("B") != 0) {
+            return String.format("%d%s",resultMap.get("B"), "볼");
+        }
+
+        return "낫싱";
+    }
+
 }
