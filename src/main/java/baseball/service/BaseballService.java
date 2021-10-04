@@ -1,18 +1,18 @@
 package baseball.service;
 
-import nextstep.utils.Randoms;
+import static nextstep.utils.Console.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static nextstep.utils.Console.readLine;
+import nextstep.utils.Randoms;
 
 public class BaseballService {
 
-	private int BEGIN_NUM = 111;
-	private int END_NUM = 999;
-	private int MAX_SIZE = 3;
-	private String REG_EX = "[1-9]{" + MAX_SIZE + "}";
+	private final int BEGIN_NUM = 111;
+	private final int END_NUM = 999;
+	private final int MAX_SIZE = 3;
+	private final String REG_EX = "[1-9]{" + MAX_SIZE + "}";
 
 	/**
 	 * 컴퓨터에서 생성한 숫자가 서로 다른 수로 구성 되도록 만들어준다.
