@@ -9,126 +9,129 @@ import static nextstep.utils.Console.readLine;
 
 public class BaseballService {
 
-    private int BEGIN_NUM = 111;
-    private int END_NUM = 999;
-    private int MAX_SIZE = 3;
-    private String REG_EX = "[1-9]{" + MAX_SIZE+  "}";
+	private int BEGIN_NUM = 111;
+	private int END_NUM = 999;
+	private int MAX_SIZE = 3;
+	private String REG_EX = "[1-9]{" + MAX_SIZE + "}";
 
-    /**
-     * 컴퓨터에서 생성한 숫자가 서로 다른 수로 구성 되도록 만들어준다.
-     * @return 생성된 숫자를 Key, 자릿수를 Value로 한 Map
-     */
-    public Map<String, Integer> makeComNumber() {
-        Map<String, Integer> comNumbersMap;
-        int baseInt;
+	/**
+	 * 컴퓨터에서 생성한 숫자가 서로 다른 수로 구성 되도록 만들어준다.
+	 * @return 생성된 숫자를 Key, 자릿수를 Value로 한 Map
+	 */
+	public Map<String, Integer> makeComNumber() {
+		Map<String, Integer> comNumbersMap;
+		int baseInt;
 
-        do {
-            baseInt = Randoms.pickNumberInRange(BEGIN_NUM, END_NUM);
-            comNumbersMap = changeNumberToMap(String.valueOf(baseInt));
-        } while (!String.valueOf(baseInt).matches(REG_EX) || comNumbersMap.keySet().size() != MAX_SIZE);
+		do {
+			baseInt = Randoms.pickNumberInRange(BEGIN_NUM, END_NUM);
+			comNumbersMap = changeNumberToMap(String.valueOf(baseInt));
+		} while (!String.valueOf(baseInt).matches(REG_EX) || comNumbersMap.keySet().size() != MAX_SIZE);
 
-        return comNumbersMap;
-    }
+		return comNumbersMap;
+	}
 
-    /**
-     * 사용자가 숫자를 입력하게 한다.
-     * 입력된 숫자를 Map 구조로 변경하여 반환한다.
-     *
-     * @return 입력된 숫자를 Key, 자릿수를 Value로 한 Map
-     */
-    public Map<String, Integer> inputUserNumber() {
-        Map<String, Integer> userNumbersMap;
-        String inputString;
+	/**
+	 * 사용자가 숫자를 입력하게 한다.
+	 * 입력된 숫자를 Map 구조로 변경하여 반환한다.
+	 *
+	 * @return 입력된 숫자를 Key, 자릿수를 Value로 한 Map
+	 */
+	public Map<String, Integer> inputUserNumber() {
+		Map<String, Integer> userNumbersMap;
+		String inputString;
 
-        do{
-            System.out.print("숫자를 입력해주세요: ");
-            inputString = readLine();
-            userNumbersMap = changeNumberToMap(inputString);
-        } while (!isNumeric(inputString) || userNumbersMap.keySet().size() != MAX_SIZE);
+		do {
+			System.out.print("숫자를 입력해주세요: ");
+			inputString = readLine();
+			userNumbersMap = changeNumberToMap(inputString);
+		} while (!isNumeric(inputString) || userNumbersMap.keySet().size() != MAX_SIZE);
 
-        return userNumbersMap;
-    }
+		return userNumbersMap;
+	}
 
-    /**
-     * String으로 된 숫자를 Map 구조로 변경한다.
-     * @param inputs 입력된 값
-     * @return 숫자를 Key, 자릿수를 Value로 한 Map
-     */
-    public Map<String, Integer> changeNumberToMap (String inputs) {
+	/**
+	 * String으로 된 숫자를 Map 구조로 변경한다.
+	 * @param inputs 입력된 값
+	 * @return 숫자를 Key, 자릿수를 Value로 한 Map
+	 */
+	public Map<String, Integer> changeNumberToMap(String inputs) {
 
-        Map<String, Integer> map = new HashMap<>();
+		Map<String, Integer> map = new HashMap<>();
 
-        for (int i = 0; i < inputs.length(); i++) {
-            map.put(String.valueOf(inputs.charAt(i)), i + 1);
-        }
+		for (int i = 0; i < inputs.length(); i++) {
+			map.put(String.valueOf(inputs.charAt(i)), i + 1);
+		}
 
-        return map;
-    }
+		return map;
+	}
 
-    /**
-     *
-     * @param resultMap
-     * @param comNumbersMap
-     * @param userNumbersMap
-     */
-    public void countNumbers(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap, Map<String, Integer> userNumbersMap) {
-        for (Map.Entry<String, Integer> entry : userNumbersMap.entrySet()) {
-            makeResultMap(resultMap, comNumbersMap, entry.getKey(), entry.getValue());
-        }
-    }
-    /**
-     * 컴퓨터 Map과  사용자 입력 Map을 비교하여 결과 값을 resultMap에 저장
-     *
-     * @param resultMap
-     * @param comNumbersMap
-     * @param userNumber
-     * @param userNumberValue
-     */
-    public void makeResultMap(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap, String userNumber, Integer userNumberValue) {
-        if (!comNumbersMap.containsKey(userNumber)) {
-            return;
-        }
+	/**
+	 *
+	 * @param resultMap
+	 * @param comNumbersMap
+	 * @param userNumbersMap
+	 */
+	public void countNumbers(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap,
+		Map<String, Integer> userNumbersMap) {
+		for (Map.Entry<String, Integer> entry : userNumbersMap.entrySet()) {
+			makeResultMap(resultMap, comNumbersMap, entry.getKey(), entry.getValue());
+		}
+	}
 
-        if (comNumbersMap.get(userNumber).equals(userNumberValue)) {
-            resultMap.put("S", resultMap.get("S") + 1);
-            return;
-        }
+	/**
+	 * 컴퓨터 Map과  사용자 입력 Map을 비교하여 결과 값을 resultMap에 저장
+	 *
+	 * @param resultMap
+	 * @param comNumbersMap
+	 * @param userNumber
+	 * @param userNumberValue
+	 */
+	public void makeResultMap(Map<String, Integer> resultMap, Map<String, Integer> comNumbersMap, String userNumber,
+		Integer userNumberValue) {
+		if (!comNumbersMap.containsKey(userNumber)) {
+			return;
+		}
 
-        resultMap.put("B", resultMap.get("B") + 1);
-    }
+		if (comNumbersMap.get(userNumber).equals(userNumberValue)) {
+			resultMap.put("S", resultMap.get("S") + 1);
+			return;
+		}
 
-    /**
-     * resultMap Data에 따른 메시지 생성
-     *
-     * @param resultMap
-     * @return
-     */
-    public String makeMessage(Map<String, Integer> resultMap) {
-        if (resultMap.get("S") != 0 && resultMap.get("B") != 0) {
-            return String.format("%d%s %d%s",resultMap.get("S"), "스트라이크",resultMap.get("B"), "볼");
-        }
+		resultMap.put("B", resultMap.get("B") + 1);
+	}
 
-        if (resultMap.get("S") != 0) {
-            return String.format("%d%s",resultMap.get("S"), "스트라이크");
-        }
+	/**
+	 * resultMap Data에 따른 메시지 생성
+	 *
+	 * @param resultMap
+	 * @return
+	 */
+	public String makeMessage(Map<String, Integer> resultMap) {
+		if (resultMap.get("S") != 0 && resultMap.get("B") != 0) {
+			return String.format("%d%s %d%s", resultMap.get("S"), "스트라이크", resultMap.get("B"), "볼");
+		}
 
-        if (resultMap.get("B") != 0) {
-            return String.format("%d%s",resultMap.get("B"), "볼");
-        }
+		if (resultMap.get("S") != 0) {
+			return String.format("%d%s", resultMap.get("S"), "스트라이크");
+		}
 
-        return "낫싱";
-    }
+		if (resultMap.get("B") != 0) {
+			return String.format("%d%s", resultMap.get("B"), "볼");
+		}
 
-    public void initResultMap(Map<String, Integer> resultMap) {
-        resultMap.put("S", 0);
-        resultMap.put("B", 0);
-    }
+		return "낫싱";
+	}
 
-    private boolean isNumeric(String strNum) {
-        boolean result = strNum.matches(REG_EX);
-        if (!result) {
-            System.out.println("[ERROR] 숫자로 3자리 입력하세요.");
-        }
-        return result;
-    }
+	public void initResultMap(Map<String, Integer> resultMap) {
+		resultMap.put("S", 0);
+		resultMap.put("B", 0);
+	}
+
+	private boolean isNumeric(String strNum) {
+		boolean result = strNum.matches(REG_EX);
+		if (!result) {
+			System.out.println("[ERROR] 숫자로 3자리 입력하세요.");
+		}
+		return result;
+	}
 }

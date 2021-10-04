@@ -7,39 +7,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Application {
-    public static BaseballService baseballService = new BaseballService();
+	public static BaseballService baseballService = new BaseballService();
 
-    public static void main(String[] args) {
-        do {
-            startGame();
-        } while (endGame());
-    }
+	public static void main(String[] args) {
+		do {
+			startGame();
+		} while (endGame());
+	}
 
-    public static void startGame() {
-        Map<String, Integer> comNumbersMap;
-        Map<String, Integer> userNumbersMap;
-        Map<String, Integer> resultMap = new HashMap();
-        baseballService.initResultMap(resultMap);
+	public static void startGame() {
+		Map<String, Integer> comNumbersMap;
+		Map<String, Integer> userNumbersMap;
+		Map<String, Integer> resultMap = new HashMap();
+		baseballService.initResultMap(resultMap);
 
-        comNumbersMap = baseballService.makeComNumber();
-        System.out.println("comNumbersMap" + comNumbersMap.toString());
+		comNumbersMap = baseballService.makeComNumber();
+		System.out.println("comNumbersMap" + comNumbersMap.toString());
 
-        while (!resultMap.get("S").equals(3)) {
-            baseballService.initResultMap(resultMap);
-            userNumbersMap = baseballService.inputUserNumber();
+		while (!resultMap.get("S").equals(3)) {
+			baseballService.initResultMap(resultMap);
+			userNumbersMap = baseballService.inputUserNumber();
 
-            baseballService.countNumbers(resultMap, comNumbersMap, userNumbersMap);
+			baseballService.countNumbers(resultMap, comNumbersMap, userNumbersMap);
 
-            System.out.println(baseballService.makeMessage(resultMap));
-        }
+			System.out.println(baseballService.makeMessage(resultMap));
+		}
 
-    }
+	}
 
-    public static boolean endGame() {
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        if (Console.readLine().equals("1")) {
-            return true;
-        }
-        return false;
-    }
+	public static boolean endGame() {
+		System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+		if (Console.readLine().equals("1")) {
+			return true;
+		}
+
+		System.out.println("게임 끝");
+		return false;
+	}
 }
