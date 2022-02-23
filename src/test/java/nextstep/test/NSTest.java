@@ -1,5 +1,7 @@
 package nextstep.test;
 
+import static org.assertj.core.api.Assertions.*;
+
 import org.assertj.core.util.Strings;
 
 import java.io.ByteArrayInputStream;
@@ -7,9 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.NoSuchElementException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public abstract class NSTest {
     private PrintStream standardOut;
